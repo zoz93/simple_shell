@@ -1,8 +1,15 @@
 #include "shell.h"
 
+/**
+ * handle_path - tokenizes the path received to array of strings
+ * @env: env variables received from main
+ * @tokens_args: tokenized user input arguments
+ * Return: stuct with array of strings + it's size
+ */
+
 paths handle_path(char **env, char **tokens_args)
 {
-	char *full_path = get_path(env), *temp, *old_path_token = NULL;
+	char *full_path = get_path(env), *old_path_token = NULL, *temp;
 	int count = tokens_count(full_path, ":"), i;
 	char **path_tokens = token_line(full_path, ":"), **extra_path;
 	paths current_paths;
@@ -23,3 +30,4 @@ paths handle_path(char **env, char **tokens_args)
 	current_paths.size = count + 1;
 	return (current_paths);
 }
+
