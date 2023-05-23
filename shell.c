@@ -18,7 +18,7 @@ int main(int argc, char *argv[], char **env)
 
 	if (argc > 1)
 	{
-		perror("Here non-inter");
+		perror(argv[1]);
 	}
 	while (1)
 	{
@@ -33,7 +33,7 @@ int main(int argc, char *argv[], char **env)
 		if (funptr != NULL)
 			funptr(exit_status, env);
 		else
-			fork_process(tokens, argv, env);
+			fork_process(tokens, env);
 		free(buff);
 		if (!isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$ ", 2);
