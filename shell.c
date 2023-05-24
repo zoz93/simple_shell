@@ -14,7 +14,7 @@ int main(int argc, char *argv[], char **env)
 	char *buff = NULL;
 	char **tokens;
 	void (*funptr)(int, char **);
-	int exit_status = 0;
+	int exit_status = 0, flag = 0;
 
 	signal(SIGINT, my_signal);
 	if (argc > 1)
@@ -24,8 +24,11 @@ int main(int argc, char *argv[], char **env)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
+		{
 			write(STDOUT_FILENO, "$ ", 2);
-		buff = read_line();
+			flag = 1;
+		}
+		buff = read_line(flag);
 		if (_strcmp(buff, "\n") == 0)
 		{
 			free(buff);

@@ -36,7 +36,7 @@ char **token_line(char *line, char *delim);
 int tokens_count(char *str, char *delim);
 char *get_path(char **env);
 void (*find_fun(char *str))();
-char *read_line(void);
+char *read_line(int flag);
 void fork_process(char **args, char **argv, char **env);
 void my_signal(int sig);
 
