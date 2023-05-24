@@ -40,7 +40,7 @@ int tokens_count(char *str, char *delim);
 char *get_path(char **env);
 void (*find_fun(char *str))();
 char *read_line(void);
-void fork_process(char **args, char **env);
+void fork_process(char **args, char **argv, char **env);
 
 /*Builtins*/
 void handle_exit(int status, char **env);

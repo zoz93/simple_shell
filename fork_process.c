@@ -19,7 +19,7 @@ void fork_process(char **args, char **argv, char **env)
 			my_pid = fork();
 			if (my_pid == -1)
 			{
-				perror("Error happened\n");
+				perror(argv[0]);
 				exit(EXIT_FAILURE);
 			}
 			if (my_pid == 0)
