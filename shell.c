@@ -18,11 +18,13 @@ int main(int argc, char *argv[], char **env)
 
 	if (argc > 1)
 	{
-		perror(argv[1]);
+		perror("Here non-inter");
 	}
 	while (1)
 	{
-		if (isatty(STDIN_FILENO))
+		if (!isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, "", 0);
+		else if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$ ", 2);
 		buff = read_line();
 		if (buff == NULL)
@@ -32,12 +34,9 @@ int main(int argc, char *argv[], char **env)
 		funptr = find_fun(tokens[0]);
 		if (funptr != NULL)
 			funptr(exit_status, env);
-		else
-			fork_process(tokens, env);
+		else if (tokens != NULL)
+			fork_process(tokens, argv, env);
 		free(buff);
-		if (!isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "$ ", 2);
 	}
 	exit(EXIT_FAILURE);
 }
-
