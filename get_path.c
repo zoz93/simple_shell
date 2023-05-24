@@ -22,3 +22,4 @@ char *get_path(char **env)
 	return (full_path);
 	(void)env;
 }
+

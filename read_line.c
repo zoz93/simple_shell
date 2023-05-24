@@ -15,19 +15,14 @@ char *read_line(void)
 		if (feof(stdin))
 		{
 			free(buff);
-			exit(EXIT_SUCCESS);
+			write(STDOUT_FILENO, "\n", 1);
+			exit(EXIT_FAILURE);
 		}
-		perror("Error reading input\n");
 		free(buff);
 		exit(EXIT_FAILURE);
 	}
-	history++;
-	if (buff[0] == '\0')
-	{
-		free(buff);
-		return (NULL);
-	}
-	buff[read - 1] = '\0';
+	if (_strcmp(buff, "\n") != 0)
+		buff[read - 1] = '\0';
 	return (buff);
 }
 

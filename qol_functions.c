@@ -26,14 +26,13 @@ int tokens_count(char *str, char *delim)
 /**
  * qol_free - Frees up memory taken by char **.
  * @args: double pointer containing commands/arguments.
- * @size: A double pointer to the beginning of args.
  */
 
-void qol_free(char **args, size_t size)
+void qol_free(char **args)
 {
 	size_t x;
 
-	for (x = 0 ; x < size ; x++)
+	for (x = 0 ; args[x] != NULL ; x++)
 		free(args[x]);
 
 	free(args);
@@ -50,14 +49,14 @@ void (*find_fun(char *str))()
 {
 	int x = 0;
 	f_struc my_funcs[] = {
-		{"env", handle_env},
+		{"printenv", handle_env},
 		{"exit", handle_exit},
 		{NULL, NULL}
 	};
 
 	while (my_funcs[x].command)
 	{
-		if (_strcmp(str, my_funcs[x].command) == 0)
+		if (str != NULL && _strcmp(str, my_funcs[x].command) == 0)
 			return (my_funcs[x].funptr);
 		x++;
 	}
@@ -104,3 +103,4 @@ char **allocate_string_array(size_t n)
 		array[i] = NULL;
 	return (array);
 }
+

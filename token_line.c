@@ -11,16 +11,15 @@ char **token_line(char *line, char *delim)
 {
 	char *token = NULL, *line_dup = NULL;
 	char **tokens = NULL;
-	int idx = 0, len = 0, number = 0;
+	int idx = 0, number = 0;
 	size_t size = (tokens_count(line, delim) + 1);
 
-	len = _strlen(line);
-	line_dup = _calloc(len + 1, sizeof(char));
 	line_dup = _strdup(line);
 	tokens = allocate_string_array(size);
 	if (!tokens)
 	{
-		write(STDERR_FILENO, "Allocation Error\n", 17);
+		free(line_dup);
+		free(line);
 		exit(EXIT_FAILURE);
 	}
 	if (line_dup != NULL)
@@ -31,8 +30,9 @@ char **token_line(char *line, char *delim)
 		tokens[idx] = malloc(sizeof(char) * (number + 1));
 		if (!tokens[idx])
 		{
-			qol_free(tokens, idx);
-			write(STDERR_FILENO, "Allocation Error\n", 17);
+			qol_free(tokens);
+			free(line);
+			free(line_dup);
 			exit(EXIT_FAILURE);
 		}
 		_strcpy(tokens[idx], token);
@@ -43,3 +43,4 @@ char **token_line(char *line, char *delim)
 	free(line_dup);
 	return (tokens);
 }
+

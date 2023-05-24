@@ -14,12 +14,14 @@ void fork_process(char **args, char **argv, char **env)
 
 	for (i = 0 ; i < current_paths.size ; i++)
 	{
-		if (access(current_paths.my_paths[i], X_OK) == 0)
+		flag = access(current_paths.my_paths[i], X_OK);
+		if (flag == 0)
 		{
 			my_pid = fork();
 			if (my_pid == -1)
 			{
 				perror(argv[0]);
+				free(current_paths.my_paths);
 				exit(EXIT_FAILURE);
 			}
 			if (my_pid == 0)
@@ -33,8 +35,8 @@ void fork_process(char **args, char **argv, char **env)
 			}
 		}
 	}
-	flag = access(current_paths.my_paths[i - 1], X_OK) != 0;
-	if (i == current_paths.size && flag)
+	qol_free(current_paths.my_paths);
+	if (flag == (size_t)-1)
 		perror("./shell");
-	qol_free(current_paths.my_paths, current_paths.size);
 }
+
