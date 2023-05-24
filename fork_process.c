@@ -6,7 +6,7 @@
  * @env: environment variables
  */
 
-void fork_process(char **args, char **env)
+void fork_process(char **args, char **argv, char **env)
 {
 	pid_t my_pid;
 	paths current_paths = handle_path(env, args);
